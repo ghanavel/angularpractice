@@ -1,0 +1,22 @@
+<html ng-app="app">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css\bootstrap.min.css">
+	<script type="text/javascript" src="js\angular.min.js"></script>
+	<script type="text/javascript" src="js\ang.router.js"></script>
+	<script type="text/javascript" src="js\checklist-model.js"></script>
+	<script type="text/javascript" src="js\myscript.js"></script>
+	<script type="text/javascript" src="js\service\userStorage.js"></script>
+
+</head>
+<body>
+	
+    <div class="container">
+      <div ng-include src="'view/header.html'"></div>		
+       <div ng-view></div>
+       <div ng-include src="'view/footer.html'"></div>
+    </div>
+
+
+</body>
+</html>

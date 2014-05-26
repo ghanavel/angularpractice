@@ -1,0 +1,19 @@
+<div class="container" >
+	
+	<table class="table">
+
+	  <div class="pull-right">
+	  	<a href="#/add"><button type="button" class="btn btn-primary ">ADD</button></a>
+	  </div>			
+	  <tr ng-repeat="user in users">
+	  	<td>{{user.firstname}}</td>
+	  	<td>{{user.lastname}}</td>
+	  	<td</td>
+	  	<td><a href="#edit/{{user.id}}"><button type="button" class="btn btn-primary ">EDIT</button></a></td>
+	  	<td><button type="button" class="btn btn-primary " ng-click="delete(user.id)">DELETE</button></a></td>
+	  	
+	  </tr>
+	</table>
+
+
+</div>

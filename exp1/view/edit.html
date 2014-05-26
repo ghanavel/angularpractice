@@ -1,0 +1,28 @@
+<div>I am add</div>
+<form name="form" ng-submit="save()">
+	<table class="table">
+		<tr>
+			<td>First Name</td>
+			<td><input type="text" name="firstname" ng-model="user.firstname"></td>
+		</tr>
+		<tr>
+			<td>Last Name</td>
+			<td><input type="text" name="lastname" ng-model="user.lastname"></td>
+		</tr>
+		
+
+
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="password" ng-model="user.password"></td>
+		</tr>	
+
+		<tr>
+			<td>submit</td>
+			<td><input type="submit" name="Save" ></td>
+		</tr>			
+						
+	</table>
+	<pre>{{user}}</pre>
+
+</form>

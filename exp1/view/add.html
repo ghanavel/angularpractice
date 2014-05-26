@@ -1,0 +1,166 @@
+
+<form name="form" class="form-horizontal" ng-submit="save()">
+
+
+
+	<div class="form-group">
+		<label for="inputUsername" class="col-sm-2 control-label">Username</label>
+		<div class="col-sm-10">
+		<input type="text" name="username"  class="form-control" ng-model="user.username" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+		<div class="col-sm-10">
+		<input type="text" name="email"  class="form-control" ng-model="user.email" placeholder="Enter email" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="inputName" class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-10">
+		<input type="text" name="name"  class="form-control" ng-model="user.name"/>	</div>
+	</div>		
+
+	<div class="form-group">
+		<label for="inputPassword" class="col-sm-2 control-label">Password</label>
+		<div class="col-sm-10">
+			<input type="password" name="name"  class="form-control" ng-model="user.password"/>	
+	   </div>
+	</div>	
+
+
+	<div class="form-group">
+		<label for="inputCpassword" class="col-sm-2 control-label">Confirm Password</label>
+		<div class="col-sm-10">
+		<input type="password" name="name"  class="form-control" ng-model="user.cpassword"/>	</div>
+	</div>	
+
+	<div class="form-group ">
+		<label for="inputGender" class="col-sm-2 control-label">Gender</label>
+	
+			<div class="col-sm-10">
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="gender" ng-model="user.gender" value="option1" checked>
+				    Male
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="gender" ng-model="user.gender" value="male" >
+				    Female
+				  </label>
+				</div>				
+			</div>
+	</div>		
+
+	<div class="form-group">
+		<label for="inputName" class="col-sm-2 control-label">Education</label>
+		<div class="col-sm-10">
+			<label class="checkbox-inline">
+			<input type="checkbox" id="inlineCheckbox1" name="education" ng-model="user.education.school"> School
+			</label>
+			<label class="checkbox-inline">
+			<input type="checkbox" id="inlineCheckbox2" name="education" ng-model="user.education.degree"> Degree
+			</label>
+			<label class="checkbox-inline">
+			<input type="checkbox" id="inlineCheckbox3"  name="education" ng-model="user.education.phd"> Phd
+			</label>
+		</div>
+	</div>				
+
+	<div class="form-group">
+		<label for="inputName" class="col-sm-2 control-label">Address</label>
+		<div class="col-sm-10">
+		<textarea class="form-control" rows="3" ng-model="user.address" name="address"></textarea>
+		</div>
+	</div>				
+
+	<div class="form-group">
+		<label for="inputName" class="col-sm-2 control-label">Country</label>
+		<div class="col-sm-10">
+			<select class="form-control" ng-model="user.country" name="country">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+
+
+		</div>
+	</div>					
+
+	<div class="form-group">
+		<label for="inputName" class="col-sm-2 control-label">Sports</label>
+		<div class="col-sm-10">
+			<select class="form-control" ng-model="user.sports"  multiple name="sports">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+		</div>
+	</div>	
+
+
+
+
+	<div class="form-group">
+		
+		<div class="col-sm-10 col-sm-offset-4">
+			<button type="button" class="btn btn-primary">Save</button>
+			
+		</div>
+	</div>	
+
+<!--
+
+	<table class="table">
+
+		<tr>
+			<td>User Name</td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td>First Name</td>
+			<td><input type="text" name="firstname" ng-model="user.firstname"></td>
+		</tr>
+		<tr>
+			<td>Last Name</td>
+			<td><input type="text" name="lastname" ng-model="user.lastname"></td>
+		</tr>
+		
+
+
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="password" ng-model="user.password"></td>
+		</tr>	
+
+
+		<tr>
+			<td>Confrim Password</td>
+			<td><input type="password" name="cpassword" ng-model="user.cpassword"></td>
+		</tr>		
+
+		<tr>
+			<td>submit</td>
+			<td><input type="submit" name="Save" ></td>
+		</tr>			
+						
+	</table>
+
+
+
+-->
+	<pre>{{user}}</pre>
+
+</form>
+
+<!--
+http://vitalets.github.io/checklist-model/
+-->
