@@ -155,13 +155,13 @@ var myBooks = {};
 
 // This is an object with 4 items, again using object literal
 var mango = {
-color: "yellow",
-shape: "round",
-sweetness: 8,
+    color: "yellow",
+    shape: "round",
+    sweetness: 8,
 
-howSweetAmI: function () {
-console.log("Hmm Hmm Good");
-}
+    howSweetAmI: function () {
+    console.log("Hmm Hmm Good");
+    }
 }
 
 /*
@@ -177,14 +177,14 @@ mango.shape= "round";
 mango.sweetness = 8;
 
 mango.howSweetAmI = function () {
-console.log("Hmm Hmm Good");
+    console.log("Hmm Hmm Good");
 }
 
 
 
 
 
-1. Constructor Pattern for Creating Objects
+// 1. Constructor Pattern for Creating Objects
 function Fruit (theColor, theSweetness, theFruitName, theNativeToLand) {
 
     this.color = theColor;
@@ -229,11 +229,11 @@ Fruit.prototype.fruitName = "Generic Fruit";
 Fruit.prototype.nativeToLand = "USA";
 
 Fruit.prototype.showName = function () {
-console.log("This is a " + this.fruitName);
+    console.log("This is a " + this.fruitName);
 }
 
 Fruit.prototype.nativeTo = function () {
-            console.log("Grown in:" + this.nativeToLand);
+    console.log("Grown in:" + this.nativeToLand);
 }
 
 
@@ -299,7 +299,7 @@ var school = {schoolName:"MIT", schoolAccredited: true, schoolLocation:"Massachu
 
 //Use of the for/in loop to access the properties in the school object
 for (var eachItem in school) {
-console.log(eachItem); // Prints schoolName, schoolAccredited, schoolLocation
+    console.log(eachItem); // Prints schoolName, schoolAccredited, schoolLocation
 
 }
 
@@ -315,7 +315,7 @@ For example:
 
  //Use of the for/in loop to access the properties in the school object
 for (var eachItem in school) {
-console.log(eachItem); // Prints schoolName, schoolAccredited, schoolLocation
+    console.log(eachItem); // Prints schoolName, schoolAccredited, schoolLocation
 
 }
 
@@ -325,7 +325,7 @@ console.log(eachItem); // Prints schoolName, schoolAccredited, schoolLocation
 
 
 function HigherLearning () {
-this.educationLevel = "University";
+    this.educationLevel = "University";
 }
 
 // Implement inheritance with the HigherLearning constructor
@@ -337,7 +337,7 @@ school.schoolLocation = "Massachusetts";
 
 //Use of the for/in loop to access the properties in the school object
 for (var eachItem in school) {
-console.log(eachItem); // Prints educationLevel, schoolName, schoolAccredited, and schoolLocation
+    console.log(eachItem); // Prints educationLevel, schoolName, schoolAccredited, and schoolLocation
 }
 
 
@@ -402,7 +402,7 @@ console.log(school.educationLevel2); // University 2
 delete school.educationLevel2; true (always returns true, as noted earlier)
 
 // The inherited educationLevel2 property was not deleted
-console.log(school.educationLevel2); University 2
+console.log(school.educationLevel2); //University 2
 
 /*
 Serialize and Deserialize Objects
@@ -456,10 +456,10 @@ A Basic Example of Closures in JavaScript:
 */
 
 function showName (firstName, lastName) {
-var nameIntro = "Your name is ";
-    // this inner function has access to the outer function's variables, including the parameter
-function makeFullName () {
-return nameIntro + firstName + " " + lastName;
+    var nameIntro = "Your name is ";
+        // this inner function has access to the outer function's variables, including the parameter
+    function makeFullName () {
+    return nameIntro + firstName + " " + lastName;
 }
 
 return makeFullName ();
@@ -637,7 +637,7 @@ else {
   return false;
   }
 }
-Use this:
+// Use this:
 
 function isAdult(age) {
    return age && age > 17 ;
@@ -761,22 +761,22 @@ All of my code for the application will start in the IIFE:
 
 // All the code is wrapped in the IIFE
 (function () {
-var firstName = “Richard”;
-function init () {
-  doStuff (firstName);
-  // code to start the application
-}
+    var firstName = “Richard”;
+    function init () {
+      doStuff (firstName);
+      // code to start the application
+    }
 
-function doStuff () {
-  // Do stuff here
-}
+    function doStuff () {
+      // Do stuff here
+    }
 
-function doMoreStuff () {
- // Do more stuff here
-}
+    function doMoreStuff () {
+     // Do more stuff here
+    }
 
-// Start the application
-init ();
+    // Start the application
+    init ();
 }) ();
 
 /*
@@ -969,7 +969,7 @@ var generalLastName = "Clinton";
 
 function getInput (options, callback) {
     allUserData.push (options);
-// Pass the global variable generalLastName to the callback function
+    // Pass the global variable generalLastName to the callback function
     callback (generalLastName, options);
 }
 
@@ -1378,24 +1378,24 @@ Demonstration of Inheritance in JavaScript:
 */
 
 function Plant () {
-this.country = "Mexico";
-this.isOrganic = true;
+    this.country = "Mexico";
+    this.isOrganic = true;
 }
 
 // Add the showNameAndColor method to the Plant prototype property
 Plant.prototype.showNameAndColor =  function () {
-console.log("I am a " + this.name + " and my color is " + this.color);
+    console.log("I am a " + this.name + " and my color is " + this.color);
 }
 
 // Add the amIOrganic method to the Plant prototype property
 Plant.prototype.amIOrganic = function () {
-if (this.isOrganic)
-console.log("I am organic, Baby!");
+    if (this.isOrganic)
+    console.log("I am organic, Baby!");
 }
 
 function Fruit (fruitName, fruitColor) {
-this.name = fruitName;
-this.color = fruitColor;
+    this.name = fruitName;
+    this.color = fruitColor;
 }
 
 // Set the Fruit's prototype to Plant's constructor, thus inheriting all of Plant.prototype methods and properties.
@@ -1462,7 +1462,7 @@ Here is another example of the prototype chain:
 */
 
 function People () {
-this.superstar = "Michael Jackson";
+    this.superstar = "Michael Jackson";
 }
 // Define "athlete" property on the People prototype so that "athlete" is accessible by all objects that use the People () constructor.
 People.prototype.athlete = "Tiger Woods";
@@ -1487,6 +1487,609 @@ All built-in constructors (Array (), Number (), String (), etc.) were created fr
 */
 
 
+
+
+/*
+Object Oriented Programming (OOP) refers to using Classes (Functions in JavaScript) to create objects, which are self-contained pieces of code.
+Then we use those objects as building blocks for our applications. Using objects in this manner allows us to adopt some valuable techniques, 
+including Inheritance (objects can inherit features from other objects), Polymorphism (objects can share the same interface—how they are 
+accessed and used—while their underlying implementation of the interface may differ), and Encapsulation (each object is responsible for 
+specific tasks).
+
+
+// Encapsulation and Inheritance Overview
+
+Objects can be thought of as the main actors in an application, or simply the main “things” or building blocks that do all the work. 
+As you know by now, objects are everywhere in JavaScript, and we use object literals or constructor Functions to create objects. 
+Also, it is important to know that Functions are objects in JavaScript.
+
+Encapsulation refers to enclosing all the functionalities of an object within that object, so that the object’s internal workings
+(its methods and properties) are hidden from the rest of the application. This allows us to abstract or localize specific set of 
+functionalities on objects.
+
+Inheritance refers to an object being able to inherit methods and properties from a parent object (a Class in other OOP languages,
+or a Function in JavaScript).
+
+Both of these concepts, encapsulation and inheritance, are important because they allow us to build applications with reusable code, 
+scalable architecture, and abstraction. The result is applications that are easy to maintain, efficient, and scalable.
+
+An instance is an implementation of a Function. In simple terms, it is a copy (or “child”) of a Function or object. For example:
+
+*/
+
+function Tree (typeOfTree) {} // Tree is a constructor function, because we will use new keyword to invoke it.
+
+var bananaTree = new Tree ("banana"); // bananaTree is an instance of Tree.
+
+/*
+In the preceding example code, bananaTree is an object that was created from the Tree constructor function. We say that the bananaTree 
+object is an instance of the Tree object. Tree is both an object and a function, because functions are objects in JavaScript. bananaTree 
+can have its own methods and properties and inherit methods and properties from the Tree object, as we will discuss in detail when we study 
+inheritance below.
+
+// OOP in JavaScript
+
+
+The two important principles with OOP in JavaScript are Object Creation patterns (Encapsulation) and Code Reuse patterns (Inheritance). 
+When building applications, you create many objects, and there are many ways of creating these objects: you can use the very basic object 
+literal pattern, for example:
+
+*/
+
+var myObj = {name:"Richard", profession:"Developer"}; 
+
+// Or you can use a constructor function (Classes in other languages, but Functions in JavaScript). For example:
+
+function People (name, profession) {} //People () is the constructor function, because we use the new keyword below to invoke it.
+
+var richard = new People (“Richard”, “Developer”) // richard is a new object we create from the People () constructor function.
+
+/*
+In the latter example, we use a custom constructor function to create an object. This is how we create objects when we want to add methods and
+properties on our objects, and when we want to encapsulate functionality on our objects. JavaScript developers have invented many patterns 
+(or ways) for creating objects with constructor functions. And when we say Object Creation Patterns, we are concerned principally with the 
+many ways of creating objects from constructor functions, as in the preceding example.
+
+In addition to the patterns for creating objects, you want to reuse code efficiently. When you create your objects, you will likely want some 
+of them to inherit (have similar functionality) methods and properties from a parent object, yet they should be able to also have their own 
+methods and properties. Code reuse patterns facilitate ways in which we can implement inheritance.
+
+These two universal principles—creating objects (especially from constructor Functions) and allowing objects to inherit properties and 
+methods—are the main focus of this article and, indeed, the main concepts with OOP in JavaScript. We first discuss the object creation 
+pattern.
+
+// Encapsulation in JavaScript
+(The Best Object Creation Pattern: Combination Constructor/Prototype Pattern)
+
+As we have learned, one of the main principles with OOP is encapsulation—put all the inner workings of an object inside that object. 
+To implement encapsulation in JavaScript, we have to define the core methods and properties on that object. To do this, we will use 
+the best pattern for encapsulation in JavaScript: the Combination Constructor/Prototype Pattern. This name is a mouthful, but you needn’t 
+memorize it, since we are only concerned with its implementation. Before we implement it, let’s quickly learn a bit more about 
+the practicality of encapsulation.
+
+// Why Encapsulation?
+When you simply want to create an object just to store some data, and it is the only object of its kind, you can use an object literal and 
+create your object. This is quite common and you will use this simple pattern often.
+
+However, whenever you want to create objects with similar functionalities (to use the same methods and properties), you encapsulate the main 
+functionalities in a Function and you use that Function’s constructor to create the objects. This is the essence of encapsulation. And it 
+is this need for encapsulation that we are concerned with and why we are using the Combination Constructor/Prototype Pattern.
+
+To make practical use of OOP in JavaScript, we will build an object-oriented quiz application that uses all the principles and techniques 
+we learn in this article. First up, our quiz application will have users (a Users Function) who take the quiz. There will be some common 
+properties for every user who takes the quiz: each user will have a name, a score, an email, and the quiz scores (all the scores). 
+These are the properties of the User object. In addition, each User object should be able to show the name and score, save scores, and 
+change the email. These are the methods of the object.
+
+Because we want ALL the user objects to have these same properties and methods, we cannot use the object literal way of creating objects. 
+We have to use a constructor Function to encapsulate these properties and methods.
+
+Since we know all users will have the same set of properties, it makes sense to create a Function (Class in OOP languages) that encapsulates 
+these properties and methods. Thus, we will use the Combination Constructor/Prototype Pattern for this.
+
+Implementation of Combination Constructor/Prototype Pattern
+The User Function:
+
+I will explain each line.
+
+
+*/
+
+function User (theName, theEmail) {
+    this.name = theName;
+    this.email = theEmail;
+    this.quizScores = [];
+    this.currentScore = 0;
+}
+
+User.prototype = {
+    constructor: User,
+    saveScore:function (theScoreToAdd)  {
+        this.quizScores.push(theScoreToAdd)
+    },
+    showNameAndScores:function ()  {
+        var scores = this.quizScores.length > 0 ? this.quizScores.join(",") : "No Scores Yet";
+        return this.name + " Scores: " + scores;
+    },
+    changeEmail:function (newEmail)  {
+        this.email = newEmail;
+        return "New Email Saved: " + this.email;
+    }
+}
+
+
+// Make Instances of the User function
+
+// A User 
+firstUser = new User("Richard", "Richard@examnple.com"); 
+firstUser.changeEmail("RichardB@examnple.com");
+firstUser.saveScore(15);
+firstUser.saveScore(10); 
+
+firstUser.showNameAndScores(); //Richard Scores: 15,10
+
+// Another User
+secondUser = new User("Peter", "Peter@examnple.com");
+secondUser.saveScore(18);
+secondUser.showNameAndScores(); //Peter Scores: 18
+
+// Explanation of Combination Constructor/Prototype Pattern
+
+/*
+Let’s expound on each line of code so we have a thorough understanding of this pattern.
+
+The following lines initialize the instance properties. These properties will be defined on each User instance that is created. 
+So the values will be different for each user. The use of the this keyword inside the function specifies that these properties 
+will be unique to every instance of the User object:
+*/
+
+this.name = theName;
+this.email = theEmail;
+this.quizScores = [];
+this.currentScore = 0;
+
+/*
+In the code below, we are overwriting the prototype property with an object literal, and we define all of our methods (that will be inherited by all the User instances) in this object.
+Discussion continues after the code:
+*/
+
+User.prototype = {
+    constructor: User,
+    saveScore:function (theScoreToAdd)  {
+        this.quizScores.push(theScoreToAdd)
+    },
+    showNameAndScores:function ()  {
+        var scores = this.quizScores.length > 0 ? this.quizScores.join(",") : "No Scores Yet";
+        return this.name + " Scores: " + scores;
+    },
+    changeEmail:function (newEmail)  {
+        this.email = newEmail;
+        return "New Email Saved: " + this.email;
+    }
+}
+
+
+// This way of overwriting the constructor is simply for convenience, so we don’t have to write User.prototype each time, like this:
+
+
+
+User.prototype.constructor = User;
+User.prototype.saveScore = function (theScoreToAdd)  {
+    this.quizScores.push(theScoreToAdd)
+};
+
+User.prototype.showNameAndScores = function ()  {
+    var scores = this.quizScores.length > 0 ? this.quizScores.join(",") : "No Scores Yet";
+    return this.name + " Scores: " + scores;
+};
+
+User.prototype.changeEmail =  function (newEmail)  {
+    this.email = newEmail;
+    return "New Email Saved: " + this.email;
+}
+
+/*
+
+By overwriting the prototype with a new object literal we have all the methods organized in one place, and you can better see the 
+encapsulation that we are after. And of course it is less code you have to type.
+
+
+// JavaScript Prototype
+In JavaScript, you add methods and properties on the prototype property when you want instances of an object to inherit those methods and 
+properties. This is the reason we add the methods on the User.prototype property, so that they can be used by all instances of the User 
+object.
+
+
+// Constructor Property
+In my post JavaScript Prototype, I explained that every function has a constructor property, and this property points to the constructor 
+of the function. For example:
+*/
+
+function Fruit () {}
+var newFruit = new Fruit ();
+console.log (newFruit.constructor) // Fruit ()
+
+
+/*
+The one disadvantage of overwriting the prototype is that the constructor property no longer points to the prototype, so we have to set 
+it manually. Hence this line:
+*/
+
+constructor: User
+
+
+// Prototype Methods
+
+/*
+In the following lines, we create methods on the prototype (in the object literal) so that all instances of Users can have access to these 
+methods.
+*/
+
+    saveScore:function (theScoreToAdd)  {
+        this.quizScores.push(theScoreToAdd)
+    },
+    showNameAndScores:function ()  {
+        var scores = this.quizScores.length > 0 ? this.quizScores.join(",") : "No Scores Yet";
+        return this.name + " Scores: " + scores;
+    },
+    changeEmail:function (newEmail)  {
+        this.email = newEmail;
+        return "New Email Saved: " + this.email;
+    }
+
+
+// We then created instances of the User object:
+
+// A User 
+firstUser = new User("Richard", "Richard@examnple.com"); 
+firstUser.changeEmail("RichardB@examnple.com");
+firstUser.saveScore(15);
+firstUser.saveScore(10); 
+
+firstUser.showNameAndScores(); //Richard Scores: 15,10
+
+// Another User
+secondUser = new User("Peter", "Peter@examnple.com");
+secondUser.saveScore(18);
+secondUser.showNameAndScores(); //Peter Scores: 18
+
+/*
+As you see, we have encapsulated all the functionality for a User inside the User Function, so that each instance of User can make use 
+of the prototype methods (like changeEmail) and define their own instance properties (like name and email).
+
+With this pattern, you can use the standard operators and methods on the instances, including the instanceOf operator, the for-in loop 
+(even hasOwnProperty), and the constructor property.
+
+//Inheritance in JavaScript
+
+(The Best Pattern: Parasitic Combination Inheritance)
+
+Implementing inheritance in our quiz application will permit us to inherit functionality from parent Functions so that we can easily reuse 
+code in our application and extend the functionality of objects. Objects can make use of their inherited functionalities and still have their 
+own specialized functionalities.
+
+The best pattern for implementing inheritance in JavaScript is the Parasitic Combination inheritance [1] [2]. Before we dive into this awesome 
+pattern, let’s see why its practical to use inheritance in our applications.
+
+We have successfully implemented encapsulation by enclosing all the functionality for users of our quiz application by adding all the methods 
+and properties that each user will need on the User function, and all instances of User will have those properties and methods.
+
+Why Inheritance?
+Next, we want to encapsulate all the functionalities for every Question. The Question function (Class in OOP languages) will have all the 
+generic properties and methods that every kind of question will need to have. For example, every question will have the question, 
+the choices, and the correct answer. These will be the properties. In addition, each question will have some methods: 
+getCorrectAnswer and getUserAnswer, and displayQuestion.
+
+We want our quiz application to make different types of Questions. We will implement a MultipleChoiceQuestion function and a DragDropQuestion 
+function. To implement these, it would not make sense to put the properties and methods outlined above (that all questions will use) 
+inside the MultipleChoiceQuestion and DragDropQuestion functions separately, repeating the same code. This would be redundant.
+
+Instead, we will leave those properties and methods (that all questions will use) inside the Question object and make the 
+MultipleChoiceQuestion and DragDropQuestion functions inherit those methods and properties. This is where inheritance is important: 
+we can reuse code throughout our application effectively and better maintain our code.
+
+Since the MultipleChoiceQuestion HTML layout and will be different from the DragDropQuestion HTML layout, the displayQuestion method will be 
+implemented differently in each. So we will override the displayQuestion method on the DragDropQuestion. Overriding functions is another 
+principle of OOP.
+
+Lets Code.
+
+// Implementation of the Parasitic Combination Inheritance Pattern
+
+
+
+
+To implement this pattern, we have to use two techniques that were invented specifically for inheritance in JavaScript. Some notes about 
+these techniques follow. No need to memorize any of the detail, just understand and be aware of the techniques, for you will have to use 
+them when you are ready to use OOP in your JS applications.
+
+// ***** Beginning of Technical Explanation (Briefly) *****
+
+// Object.create method
+Douglas Crockford created the following Object.create method [3], which is used in a fundamental way to implementing inheritance with 
+the pattern we are using.
+
+Here is the method Crockford created:
+
+*/
+
+if (typeof Object.create !== 'function') {
+    Object.create = function (o) {
+        function F() {
+        }
+
+        F.prototype = o;
+        return new F();
+    };
+}
+
+// This method has been added to the ECMAScript5 specification, and you can access it with Object.create (). 
+// Let’s quickly understand what it is doing:
+
+Object.create = function (o) {
+        //It creates a temporary constructor F()
+        function F() {
+        }
+
+        //And set the prototype of the this constructor to the parametric (passed-in) o object
+        //so that the F() constructor now inherits all the properties and methods of o
+        F.prototype = o;
+
+        //Then it returns a new, empty object (an instance of F())
+        //Note that this instance of F inherits from the passed-in (parametric object) o object. 
+        //Or you can say it copied all of the o object's properties and methods
+        return new F();
+}
+
+
+/*
+
+The crux of the matter with this Object.create method is that you pass into it an object that you want to inherit from, and it returns 
+a new object that inherits from the object you passed into it. For example:
+
+*/
+
+// We have a simple cars object
+var cars = {
+    type:"sedan",
+    wheels:4
+};
+
+// We want to inherit from the cars object, so we do:
+var toyota = Object.create (cars); // now toyota inherits the properties from cars
+console.log(toyota.type); // sedan
+
+/*
+Of course we can now add more properties to the toyota object, but let’s move on.
+
+The next function we will use for inheritance is the inheritPrototype function. This function succinctly implements the parasitic combination 
+inheritance for us. We pass in the parent object (or Super Class) and the child object (or Sub Class), and the function does the parasitic 
+combination inheritance: makes the child object inherits from the parent object.
+*/
+
+
+function inheritPrototype(childObject, parentObject) {
+    // As discussed above, we use the Crockford’s method to copy the properties and methods from the parentObject onto the childObject
+    // So the copyOfParent object now has everything the parentObject has 
+    var copyOfParent = Object.create(parentObject.prototype);
+
+    //Then we set the constructor of this new object to point to the childObject.
+    // Why do we manually set the copyOfParent constructor here, see the explanation immediately following this code block.
+    copyOfParent.constructor = childObject;
+
+    // Then we set the childObject prototype to copyOfParent, so that the childObject can in turn inherit everything from copyOfParent (from parentObject)
+   childObject.prototype = copyOfParent;
+}
+
+// Why did we manually set the copyOfParent.constructor?
+
+/*
+We explicitly set the copyOfParent.constructor property to point to the childObject constructor because in the preceding step, var 
+copyOfParent = Object.create(parentObject.prototype), this is what we actually did:
+*/
+
+// We made a new object and overwrote its prototype with the parentObject prototype:
+function F() {
+        }
+F.prototype = parentObject.prototype;
+// Then it was this new F object we assigned to copyOfParent.
+// All of this was done inside the Object.create () method.
+
+/*
+So, this new F object, which we assigned to copyOfParent, doesn’t have a constructor property anymore because we overwrote its entire 
+prototype. Whenever you overwrite an object’s prototype (object.prototype = someVal), you also overwrite the object’s constructor property.
+
+To make sure we have the correct value for copyOfParent constructor, we set it manually with this:
+copyOfParent.constructor = childObject;
+
+A commenter by the name of John correctly pointed our that I did not corruptly explain this bit, hence this detailed explanation.
+
+Essentially, we are copying all the properties and methods from the parentObject to the childObject, but we are using the copyOfParent
+as an intermediary for the copy. And because the childObject prototype was overwritten during the copy, we manually set the copyOfParent
+constructor to the childObject. Then we set the childObject prototype to the copyOfParent so that the childObject inherits from 
+the parentObject.
+
+Okay, that was quite a bit. I am hopeful that you understand some of that :)
+
+***** End of Technical Explanation (Hooray!) *****
+*/
+
+
+/*
+Back to the fun stuff: Creating our quiz OOP style.
+Now that we understand the inheritPrototype function we will be using, lets go ahead and implement our Question constructor.
+
+Note that I use “constructor” and “function” interchangeably sometimes in this particular article when referring to the function, 
+because the function will be used as a constructor to create instances.
+
+The Question Constructor (Parent of all Question Objects):
+(Can be thought of as the Super Class for Questions)
+
+*/
+
+// The Question function is the parent for all other question objects;
+// All question objects will inherit from this Question constructor
+
+function Question(theQuestion, theChoices, theCorrectAnswer) {
+    // Initialize the instance properties
+    this.question = theQuestion;
+    this.choices = theChoices;
+    this.correctAnswer = theCorrectAnswer;
+    this.userAnswer = "";
+
+    // private properties: these cannot be changed by instances
+    var newDate = new Date(),
+    // Constant variable: available to all instances through the instance method below. This is also a private property.
+        QUIZ_CREATED_DATE = newDate.toLocaleDateString();
+
+// This is the only way to access the private QUIZ_CREATED_DATE variable 
+// This is an example of a privilege method: it can access private properties and it can be called publicly
+    this.getQuizDate = function () {
+        return QUIZ_CREATED_DATE;
+    };
+
+// A confirmation message that the question was created
+    console.log("Quiz Created On: " + this.getQuizDate());
+
+}
+
+
+
+
+// Add Prototype Methods to The Question Object
+/* All instances of the Question object will inherit these methods, because we are adding the methods on the Question prototype. */
+
+ // Define the prototype methods that will be inherited
+Question.prototype.getCorrectAnswer = function () {
+    return  this.correctAnswer;
+};
+
+Question.prototype.getUserAnswer = function () {
+    return this.userAnswer;
+};
+
+Question.prototype.displayQuestion = function () {
+    var questionToDisplay = "<div class='question'>" + this.question + "</div><ul>";
+        choiceCounter = 0;
+
+    this.choices.forEach(function (eachChoice)  {
+        questionToDisplay += '<li><input type="radio" name="choice" value="' + choiceCounter + '">' + eachChoice + '</li>';
+        choiceCounter++;
+    });
+    questionToDisplay += "</ul>";
+
+    console.log (questionToDisplay);
+}; 
+
+
+// Child Questions (Sub Classes of the Question object)
+/*
+Now that we have the Question constructor object setup, we can inherit from it and create sub classes (children objects). The power of 
+inheritance is that we can create all sorts of questions now, and each can be quite versatile.
+
+First, a Multiple Choice Question:
+*/
+
+// Create the MultipleChoiceQuestion
+function MultipleChoiceQuestion(theQuestion, theChoices, theCorrectAnswer){
+// For MultipleChoiceQuestion to properly inherit from Question, here inside the MultipleChoiceQuestion constructor, we have to explicitly call the Question constructor
+// passing MultipleChoiceQuestion as the this object, and the parameters we want to use in the Question constructor:
+    Question.call(this, theQuestion, theChoices, theCorrectAnswer);
+};
+
+
+// And then we have to use the inheritPrototype function we discussed moments ago:
+// inherit the methods and properties from Question
+inheritPrototype(MultipleChoiceQuestion, Question);
+
+
+/*
+
+After we have inherited from Question, we then add methods to the MultipleChoiceQuestion function, if necessary. But we must do it after 
+we inherit, not before, or all the methods we define on its prototype will be overwritten. We are not adding any now.
+
+// A Drag and Drop Question
+In a similar manner, we can make yet another type of question:
+
+*/
+
+// Create the DragDropQuestion
+function DragDropQuestion(theQuestion, theChoices, theCorrectAnswer) {
+    Question.call(this, theQuestion, theChoices, theCorrectAnswer);
+}
+
+// inherit the methods and properties from Question
+inheritPrototype(DragDropQuestion, Question);
+
+
+// Overriding Methods
+
+/* 
+Overriding methods is a another principle of OOP, and we can do it easily with this pattern. Since the Drag and Drop questions will have a 
+different HTML layout from the Multiple Choice questions (no radio buttons, for example), we can override the displayQuestion method so 
+it operates specifically to the Drag and Drop question needs:
+*/
+
+// Override the displayQuestion method it inherited
+DragDropQuestion.prototype.displayQuestion = function () {
+    // Just return the question. Drag and Drop implementation detail is beyond this article
+    console.log(this.question);
+};
+
+/*
+In our real Quiz application, we would create a Quiz constructor that is the main application that launches the quiz, but in this article,
+we can test our inheritance code by simply doing this:
+*/
+
+// Initialize some questions and add them to an array
+var allQuestions = [
+new MultipleChoiceQuestion("Who is Prime Minister of England?", ["Obama", "Blair", "Brown", "Cameron"], 3),
+   
+new MultipleChoiceQuestion("What is the Capital of Brazil?", ["São Paulo", "Rio de Janeiro", "Brasília"], 2),
+   
+new DragDropQuestion("Drag the correct City to the world map.", ["Washington, DC", "Rio de Janeiro", "Stockholm"], 0)
+];
+
+// Display all the questions
+allQuestions.forEach(function (eachQuestion)  {
+    eachQuestion.displayQuestion();
+});
+
+
+
+/*
+If you run the code, you will see that the displayQuestion for the multiple choice questions returns the question in a div tag, with choices
+formatted with radio buttons inside li tags. On the other hand, the drag and drop questions displayQuestion method simply returns the question 
+without the choices.
+
+Nicholas Zakas stated it wonderfully, “Parasitic combination inheritance is considered the most optimal inheritance paradigm” [5] in 
+JavaScript. If you learn it and understand it well, you should use it in your JavaScript web applications.
+
+You might be wondering how is the Combination Constructor/Prototype Pattern we used for Encapsulation earlier different from the 
+Parasitic Combination Inheritance. They are similar, but the former is best used for encapsulation (creating custom objects), and 
+it does not have all the inheritance mechanisms such as subclassing (creating child constructors that inherit from the parent constructor). Moreover, the inheritance pattern goes beyond setting up objects to just inherit properties and methods, it enables child objects to themselves be parent objects of other objects, and you can use private members, overriding, and other OOP concepts.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function test() { 
 	var test = 123; 
 	console.log( test ); //123
@@ -1500,7 +2103,7 @@ All built-in constructors (Array (), Number (), String (), etc.) were created fr
 
 // Output:  
 function test() { 
-        test = 123; 
+    test = 123; 
 	console.log( test ); 
 } 
 
@@ -1512,8 +2115,8 @@ conssole.log(x+y); // ReferenceError: x is not defined
 var x = 10;
 
 function test(){
-x=15;
-console.log(x);
+    x=15;
+    console.log(x);
 }
 
 test();
@@ -1526,8 +2129,8 @@ console.log(window.x);
 x = 10;
 
 function test(){
-x=15;
-console.log(x);
+    x=15;
+    console.log(x);
 }
 
 test();
@@ -1538,8 +2141,8 @@ console.log(x);
 x = 10;
 
 function test(){
-var x=15;
-console.log(x);
+    var x=15;
+    console.log(x);
 }
 
 test();
@@ -1558,7 +2161,7 @@ console.log (name); // Jack
 // curly bracket wrapper
 var firstName = "Richard";
 {
-var firstName = "Bob";
+    var firstName = "Bob";
 }
 
 // To reiterate: JavaScript does not have block-level scope
@@ -1577,7 +2180,7 @@ for (var i = 1; i <= 10; i++) {
 
 // The variable i is a global variable and it is accessible in the following function with the last value it was assigned above 
 function aNumber () {
-console.log(i);
+    console.log(i);
 }
 
 // The variable i in the aNumber function below is the global variable i that was changed in the for loop above. Its last value was 11, set just before the for loop exited:
@@ -1594,9 +2197,9 @@ var myObj = {
 	highValue: 20,
 	constantVal: 5,
 	calculateIt: function () {
- setTimeout (function  () {
-	console.log(this.constantVal * this.highValue);
-}, 2000);
+         setTimeout (function  () {
+        	console.log(this.constantVal * this.highValue);
+        }, 2000);
 	}
 }
 
@@ -1615,9 +2218,9 @@ var myObj = {
 	highValue: 20,
 	constantVal: 5,
 	calculateIt: function () {
- setTimeout (function  () {
-	console.log(myObj.constantVal * myObj.highValue);
-}, 2000);
+         setTimeout (function  () {
+        	console.log(myObj.constantVal * myObj.highValue);
+        }, 2000);
 	}
 }
 
@@ -1626,7 +2229,7 @@ var myObj = {
 // Both the variable and the function are named myName
 var myName;
 function myName () {
-console.log ("Rich");
+    console.log ("Rich");
 }
 
 // The function declaration overrides the variable name
@@ -1638,7 +2241,7 @@ console.log(typeof myName); // function
 var myName = "Richard"; // This is the variable assignment (initialization) that overrides the function declaration.
 
 function myName () {
-console.log ("Rich");
+    console.log ("Rich");
 }
 
 console.log(typeof myName); // string 
@@ -1647,9 +2250,8 @@ console.log(typeof myName); // string
 
 // It is important to note that function expressions, such as the example below, are not hoisted
 var myName = function () {
-console.log ("Rich");
+    console.log ("Rich");
 }
-
 
 
 
