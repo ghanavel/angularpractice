@@ -2071,22 +2071,1066 @@ it does not have all the inheritance mechanisms such as subclassing (creating ch
 */
 
 
+// Understand JavaScript’s “this” With Clarity, and Master It
+
+// (Also learn all the scenarios when this is most misunderstood.)
+
+/*
+
+The this keyword in JavaScript is notorious for confusing JavaScript developers. This article aims to elucidate this in its entirety. 
+Our goal: By the time we make it through this article, this will be one part of JavaScript we will never have to worry about again. 
+Also, we will understand how to use this correctly in every scenario, including the ticklish situations where it usually proves elusive.
+
+We use this similar to the way we use pronouns in natural languages like English and French. We write: “John is running fast because 
+he is trying to catch the train.” Note the use of the pronoun “he.” We could have written this: “John is running fast because John is 
+trying to catch the train.” We don’t reuse “John” in this manner, for if we do, our family, friends, and colleagues would abandon us. 
+Yes, they would. In a similar aesthetic manner, we use the this keyword as a shortcut, a referent to refer to an object.
+
+
+*/
+
+ var person = {
+    firstName   :"Penelope",
+    lastName    :"Barrymore",
+    fullName:function () {
+    // See how we use "this" here just like we used "he" in the example sentence?
+    console.log(this.firstName + " " + this.lastName);
+
+    // Well, we could have also written:
+    console.log(person.firstName + " " + person.lastName);
+    }
+}
+
+
+/*
+If we use person.firstName and person.lastName, as in the last example, our code becomes ambiguous. Consider that there could be another 
+global variable (that we might or might not be aware of) with the name “person.” Then, references to person.firstName could attempt to
+access the fistName property from the person global variable, and this could lead to difficult-to-debug errors. So, we use the “this” 
+keyword not only for aesthetics (i.e., as a referent), but also for accuracy; its use actually makes our code more unambiguous, just as 
+the pronoun “he” made our sentence more clear. It tells us that we are referring to the specific John at the beginning of the sentence.
+
+
+Just like the pronoun “he” is used to refer to the antecedent (antecedent is the noun that a pronoun refers to), the this keyword is similarly 
+used to refer to an object that the function (where this is used) is bound to. this not only refers to the object but it actually contains the 
+value of the object. Like the pronoun, this can be thought of as a shortcut (or a reasonably unambiguous substitute) to refer back to the 
+object in context (the “antecedent object”, if you will allow me)—more on context later.
+
+// JavaScript’s this Keyword Basics
+
+
+First, know that all functions in JavaScript have properties, just like objects have properties. And when a function is executed, 
+it gets the this property—a variable with the value of the object that invokes the function where this is used.
+
+this ALWAYS refers to (and holds the value of) an object—a singular object—and it is usually used inside a function or a method, although 
+it can be used outside a function in the global scope. Note that when strict mode is being used, this holds the value of undefined in global 
+functions and in anonymous functions that are not bound to any objects.
+
+this is used inside a function (let’s say function A) and it contains the value of the object that invokes function A. We need this to access 
+methods and properties of the object that invokes function A, especially since we don’t always know the name of the invoking object and 
+sometimes there is no name at all to use to refer to the invoking object. Indeed, this is really just a shortcut reference for the 
+“antecedent object”—the invoking object.
+
+A basic JavaScript example illustrating the use of the this keyword:
+*/
+
+    var person = {
+        firstName   :"Penelope",
+        lastName    :"Barrymore",
+        // Since the "this" keyword is used inside the showFullName method below, and the showFullName method is defined on the person object,
+        // "this" will have the value of the person object because the person object will invoke showFullName ()
+        showFullName:function () {
+        console.log (this.firstName + " " + this.lastName);
+        }
+
+    }
+
+    person.showFullName (); // Penelope Barrymore
+
+    // A basic jQuery example with the this keyword:
+
+    // A very common piece of jQuery code
+
+    $ ("button").click (function (event) {
+        // $(this) will have the value of the button ($("button")) object
+        // because the button object invokes the click () method
+        console.log ($ (this).prop ("name"));
+    });    
 
 
 
+/*
+In the preceding jQuery example, a bit more explanation is necessary:
+the use of $(this), which is jQuery’s syntax for the this keyword in JavaScript, is used inside an anonymous function, and the anonymous 
+function is executed in the button’s click () method. The reason $(this) is bound to the button object is because the jQuery library binds 
+$(this) to the object that invokes the click method. Therefore, $(this) will have the value of the jQuery button ($(“button”)) object, even 
+though $(this) is defined inside an anonymous function that cannot itself access the “this” variable on the outer function.
+
+Note that the button is a DOM element on the HTML page, and it is also an object; in this case it is a jQuery object because we wrapped it in 
+the jQuery $() function.
+
+// The Biggest Gotcha with JavaScript “this” keyword
+
+If you understand this one principle of JavaScript’s this, you will understand the “this” keyword with clarity: this is not assigned a value 
+until an object invokes the function where this is defined. Let’s call the function where this is defined the “this Function.”
+
+Even though it appears this refers to the object where it is defined, it is not until an object invokes the this Function that this is actually 
+assigned a value. And the value it is assigned is based exclusively on the object that invokes the this Function. this has the value of the 
+invoking object in most circumstances. However, there are a few scenarios where this does not have the value of the invoking object. I touch 
+on those scenarios later.
+
+The use of this in the global scope
+In the global scope, when the code is executing in the browser, all global variables and functions are defined on the window object. 
+Therefore, when this is used in a global function, it is referring to (and has the value of) the global window object (not in strict mode 
+though, as noted earlier) that is the main container of the entire JavaScript application or web page.
+
+Thus:
+*/
+
+ var firstName = "Peter",
+    lastName = "Ally";
+
+    function showFullName () {
+    // "this" inside this function will have the value of the window object
+    // because the showFullName () function is defined in the global scope, just like the firstName and lastName
+    console.log (this.firstName + " " + this.lastName);
+    }
+
+    var person = {
+    firstName   :"Penelope",
+    lastName    :"Barrymore",
+    showFullName:function () {
+    // "this" on the line below refers to the person object, because the showFullName function will be invoked by person object.
+    console.log (this.firstName + " " + this.lastName);
+    }
+    }
+
+    showFullName (); // Peter Ally
+
+    // window is the object that all global variables and functions are defined on, hence:
+    window.showFullName (); // Peter Ally
+
+    // "this" inside the showFullName () method that is defined inside the person object still refers to the person object, hence:
+    person.showFullName (); // Penelope Barrymore
+
+// When this is most misunderstood and becomes tricky 
+
+/*
+The this keyword is most misunderstood when we borrow a method that uses this, when we assign a method that uses this to a variable, 
+when a function that uses this is passed as a callback function, and when this is used inside a closure—an inner function. We will look 
+at each scenario and the solutions for maintaining the proper value of this in each example.
+
+
+// A bit about “Context” before we continue
+The context in JavaScript is similar to the subject of a sentence in English: “John is the winner who returned the money.” The subject of the 
+sentence is John, and we can say the context of the sentence is John because the focus of the sentence is on him at this particular time in 
+the sentence. Even the “who” pronoun is referring to John, the antecedent. And just like we can use a semicolon to switch the subject of the
+sentence, we can have an object that is current context and switch the context to another object by invoking the function with another object.
+
+Similarly, in JavaScript code:
+*/
+
+
+var person = {
+   firstName   :"Penelope",
+   lastName    :"Barrymore",
+   showFullName:function () {
+// The "context"
+    console.log (this.firstName + " " + this.lastName);
+ }
+}
+
+// The "context", when invoking showFullName, is the person object, when we invoke the showFullName () method on the person object.
+// And the use of "this" inside the showFullName() method has the value of the person object,
+person.showFullName (); // Penelope Barrymore
+
+// If we invoke showFullName with a different object:
+var anotherPerson = {
+firstName   :"Rohit",
+lastName    :"Khan"
+};
+
+// We can use the apply method to set the "this" value explicitly—more on the apply () method later.
+// "this" gets the value of whichever object invokes the"this Function", hence:
+person.showFullName.apply (anotherPerson); // Rohit Khan
+
+// So the context is now anotherPerson because anotherPerson invoked the person.showFullName ()  method by virtue of using the apply () method
+/*
+The takeaway is that the object that invokes the this Function is in context, and we can change the context by invoking the this Function 
+with another object; then this new object is in context.
+
+Here are scenarios when the this keyword becomes tricky. The examples include solutions to fix errors with this:
+1. Fix this when used in a method passed as a callback
+
+Things get a touch hairy when we pass a method (that uses this) as a parameter to be used as a callback function. For example:
+*/
+
+// We have a simple object with a clickHandler method that we want to use when a button on the page is clicked
+    var user = {
+        data:[
+        {name:"T. Woods", age:37},
+        {name:"P. Mickelson", age:43}
+        ],
+        clickHandler:function (event) {
+            var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1
+
+            // This line is printing a random person's name and age from the data array
+            console.log (this.data[randomNum].name + " " + this.data[randomNum].age);
+        }
+    }
+
+    // The button is wrapped inside a jQuery $ wrapper, so it is now a jQuery object
+    // And the output will be undefined because there is no data property on the button object
+    $ ("button").click (user.clickHandler); // Cannot read property '0' of undefined
+
+/*
+In the code above, since the button ($(“button”)) is an object on its own, and we are passing the user.clickHandler method to its click() 
+method as a callback, we know that this inside our user.clickHandler method will no longer refer to the user object. this will now refer 
+to the object where the user.clickHandler method is executed because this is defined inside the user.clickHandler method. And the object 
+that is invoking user.clickHandler is the button object—user.clickHandler will be executed inside the button object’s click method.
+
+Note that even though we are calling the clickHandler () method with user.clickHandler (which we have to do, since clickHandler is a method 
+defined on user), the clickHandler () method itself will be executed with the button object as the context to which “this” now refers. 
+So this now refers to is the button ($(“button”)) object.
+
+At this point, it should be apparent that when the context changes—when we execute a method on some other object than where the object was 
+originally defined, the this keyword no longer refers to the original object where ‘this” was originally defined, but it now refers to the 
+object that invokes the method where this was defined.
+
+Solution to fix this when a method is passed as a callback function:
+Since we really want this.data to refer to the data property on the user object, we can use the Bind (), Apply (), or Call () method to 
+specifically set the value of this.
+
+I have written an exhaustive article, JavaScript’s Apply, Call, and Bind Methods are Essential for JavaScript Professionals, on these methods, 
+including how to use them to set the this value in various misunderstood scenarios. Rather than re-post all the details here, I recommend you 
+read that entire article, which I consider a must read for JavaScript Professionals.
+
+To fix this problem in the preceding example, we can use the bind method thus:
+
+Instead of this line:
+*/
+
+$("button").click (user.clickHandler);
+// We have to bind the clickHandler method to the user object like this:
+
+$("button").click (user.clickHandler.bind (user)); // P. Mickelson 43
+
+
+/*
+
+2. Fix this inside closure
+
+Another instance when this is misunderstood is when we use an inner method (a closure). It is important to take note that closures cannot 
+access the outer function’s this variable by using the this keyword because the this variable is accessible only by the function itself, 
+not by inner functions. For example:
+
+*/
+
+ var user = {
+    tournament:"The Masters",
+    data      :[
+    {name:"T. Woods", age:37},
+    {name:"P. Mickelson", age:43}
+    ],
+
+    clickHandler:function () {
+        // the use of this.data here is fine, because "this" refers to the user object, and data is a property on the user object.
+
+        this.data.forEach (function (person) {
+        // But here inside the anonymous function (that we pass to the forEach method), "this" no longer refers to the user object.
+        // This inner function cannot access the outer function's "this"
+       
+        console.log ("What is This referring to? " + this); //[object Window]
+     
+        console.log (person.name + " is playing at " + this.tournament);
+        // T. Woods is playing at undefined
+        // P. Mickelson is playing at undefined
+        })
+    }
+
+}
+
+user.clickHandler(); // What is This referring to? [object Window]
+
+/*
+this inside the anonymous function cannot access the outer function’s this, so it is bound to the global window object, when strict mode is 
+not being used.
+
+// Solution to maintain this inside anonymous functions:
+To fix the problem with using this inside the anonymous function passed to the forEach method, we use a common practice in JavaScript and 
+set the this value to another variable before we enter the forEach method:
+*/
+var user = {
+        tournament:"The Masters",
+        data      :[
+        {name:"T. Woods", age:37},
+        {name:"P. Mickelson", age:43}
+        ],
+
+        clickHandler:function (event) {
+            // To capture the value of "this" when it refers to the user object, we have to set it to another variable here:
+            // We set the value of "this" to theUserObj variable, so we can use it later
+            var theUserObj = this;
+            this.data.forEach (function (person) {
+                // Instead of using this.tournament, we now use theUserObj.tournament
+                console.log (person.name + " is playing at " + theUserObj.tournament);
+            })
+        }
+
+    }
+
+user.clickHandler();
+// T. Woods is playing at The Masters
+// P. Mickelson is playing at The Masters
+
+/*
+It is worth noting that many JavaScript developers like to name a variable “that,” as seen below, to set the value of this. The use of the 
+word “that” is very awkward for me, so I try to name the variable a noun that describes which object “this” is referring to, hence my use of 
+var theUserObj = this in the preceding code.
+*/
+
+// A common practice amongst JavaScript users is to use this code
+// var that = this;
+
+/*
+3. Fix this when method is assigned to a variable
+The this value escapes our imagination and is bound to another object, if we assign a method that uses this to a variable. Let’s see how:
+*/
+
+// This data variable is a global variable
+    var data = [
+    {name:"Samantha", age:12},
+    {name:"Alexis", age:14}
+    ];
+
+    var user = {
+    // this data variable is a property on the user object
+    data    :[
+    {name:"T. Woods", age:37},
+    {name:"P. Mickelson", age:43}
+    ],
+    showData:function (event) {
+    var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1
+
+    // This line is adding a random person from the data array to the text field
+    console.log (this.data[randomNum].name + " " + this.data[randomNum].age);
+    }
+
+    }
+
+    // Assign the user.showData to a variable
+    var showUserData = user.showData;
+
+    // When we execute the showUserData function, the values printed to the console are from the global data array, not from the data array in the user object
+    //
+    showUserData (); // Samantha 12 (from the global data array)
+
+/*
+// Solution for maintaining this when method is assigned to a variable:
+We can fix this problem by specifically setting the this value with the bind method:
+*/
+
+// Bind the showData method to the user object
+var showUserData = user.showData.bind (user);
+
+// Now we get the value from the user object, because the this keyword is bound to the user object
+showUserData (); // P. Mickelson 43
+
+/*
+4. Fix this when borrowing methods
+Borrowing methods is a common practice in JavaScript development, and as JavaScript developers, we will certainly encounter this practice 
+time and again. And from time to time, we will engage in this time-saving practice as well. For more on borrowing methods, read my in-depth
+article, JavaScript’s Apply, Call, and Bind Methods are Essential for JavaScript Professionals.
+
+Let’s examine the relevance of this in the context of borrowing methodskey: "value", 
+*/
+
+// We have two objects. One of them has a method called avg () that the other doesn't have
+// So we will borrow the (avg()) method
+var gameController = {
+    scores  :[20, 34, 55, 46, 77],
+    avgScore:null,
+    players :[
+    {name:"Tommy", playerID:987, age:23},
+    {name:"Pau", playerID:87, age:33}
+    ]
+}
+
+var appController = {
+        scores  :[900, 845, 809, 950],
+        avgScore:null,
+        avg     :function () {
+
+        var sumOfScores = this.scores.reduce (function (prev, cur, index, array) {
+            return prev + cur;
+        });
+
+        this.avgScore = sumOfScores / this.scores.length;
+    }
+}
+
+//If we run the code below,
+// the gameController.avgScore property will be set to the average score from the appController object "scores" array
+
+// Don't run this code, this is just for illustration; we want the appController.avgScore to remain null
+gameController.avgScore = appController.avg();
+
+/*
+The avg method’s “this” keyword will not refer to the gameController object, it will refer to the appController object because it is being 
+invoked on the appController.
+
+
+// Solution for fixing this when borrowing methods:
+To fix the issue and make sure that this inside the appController.avg () method refers to gameController, we can use the apply () method 
+thus:
+
+
+*/
+
+// Note that we are using the apply () method, so the 2nd argument has to be an array—the arguments to pass to the appController.avg () method.
+appController.avg.apply (gameController, gameController.scores);
+
+// The avgScore property was successfully set on the gameController object, even though we borrowed the avg () method from the appController object
+console.log (gameController.avgScore); // 46.4
+
+// appController.avgScore is still null; it was not updated, only gameController.avgScore was updated
+console.log (appController.avgScore); // null
 
 
 
+/*
+The gameController object borrows the appController’s avg () method. The “this” value inside the appController.avg () method will be set to 
+the gameController object because we pass the gameController object as the first parameter to the apply () method. The first parameter in
+the apply method always sets the value of “this” explicitly.
+*/
+
+
+/*
+JavaScript’s Apply, Call, and Bind Methods are Essential for JavaScript Professionals 
+
+Functions are objects in JavaScript, as we know well by now, and as objects, functions have methods, including the powerful Apply, Call, 
+and Bind methods. On the one hand, Apply and Call are nearly identical and they are used frequently in JavaScript for borrowing methods and 
+explicitly for setting the this value. We also use Apply for variable-arity functions.
+
+On the other hand, we use Bind for setting the this value in methods, and for currying functions.
+
+
+We will discuss every scenario in which these three methods are used in JavaScript. While Apply and Call are part of ECMAScript 3 
+(available on IE 6, 7, 8, and modern browsers), ECMAScript 5 (available only on modern browsers) added the Bind method. These 3 Function
+methods are workhorses and sometimes you absolutely need one of them. Let’s begin with the Bind method.
+*/
+
+
+// JavaScript’s Bind Method
+
+/*
+The bind () method is used primarily to call a function with the this value set explicitly. It other words, bind () allows you to easily set 
+which specific object will be bound to this when a function or method is invoked.
+
+This might seem relatively trivial, but oftentimes the this value in methods and functions must be set explicitly when you need a specific 
+object bound to the function’s this value.
+
+The problem is that when we use the this keyword in methods, and we call said methods from a receiver object,
+sometimes this is not bound to the object that we intended. And this results in errors in our code.
+
+
+// JavaScript’s Bind Allows Us to Set the this Value on Methods
+
+
+When this button below is clicked, the text field is populated with a random name.
+*/
+
+//  <button>Get Random Person</button>
+//  <input type="text">
+
+
+var user = {
+    data        :[
+        {name:"T. Woods", age:37},
+        {name:"P. Mickelson", age:43}
+    ],
+    clickHandler:function (event) {
+        var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1
+
+        // This line is adding a random person from the data array to the text field
+        $ ("input").val (this.data[randomNum].name + " " + this.data[randomNum].age);
+    }
+
+}
+
+// Assign an eventHandler to the button's click event
+$ ("button").click (user.clickHandler);
+
+
+/*
+
+Because the bind method was introduced in ECMAScript 5, it is unavailable in IE < 9 and Firefox 3.x.
+Here is an implementation that you can include in your code if you are targeting older browsers:
+*/ 
+
+// Credit to Douglas Crockford for this bind method
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+        if (typeof this !== "function") {
+            // closest thing possible to the ECMAScript 5 internal IsCallable function
+            throw new TypeError ("Function.prototype.bind - what is trying to be bound is not callable");
+        }
+
+        var aArgs = Array.prototype.slice.call (arguments, 1),
+                fToBind = this,
+                fNOP = function () {
+                },
+                fBound = function () {
+                    return fToBind.apply (this instanceof fNOP && oThis
+                            ? this
+                            : oThis,
+                            aArgs.concat (Array.prototype.slice.call (arguments)));
+                };
+
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP ();
+
+        return fBound;
+    };
+}
+
+/*
+Let's continue with the same example we have used above. The this value is also bound to another object if we assign the method 
+(where this is defined) to a variable. This demonstrates:
+*/
+
+// This data variable is a global variable
+var data = [
+    {name:"Samantha", age:12},
+    {name:"Alexis", age:14}
+]
+
+var user = {
+    // local data variable
+    data    :[
+        {name:"T. Woods", age:37},
+        {name:"P. Mickelson", age:43}
+    ],
+    showData:function (event) {
+        var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1
+
+        console.log (this.data[randomNum].name + " " + this.data[randomNum].age);
+    }
+
+}
+
+// Assign the showData method of the user object to a variable
+var showDataVar = user.showData;
+
+showDataVar (); // Samantha 12 (from the global data array, not from the local data array)
+
+/*
+When we execute the showDataVar () function, the values printed to the console are from the global data array, not the data array in 
+the user object. This happens because showDataVar () is executed as a global function and use of this inside showDataVar () is bound 
+to the global scope, which is the window object in browsers.
+
+Again, we can fix this problem by specifically setting the "this" value with the bind method:
+*/
+
+
+// Bind the showData method to the user object
+var showDataVar = user.showData.bind (user);
+
+// Now the we get the value from the user object because the this keyword is bound to the user object
+showDataVar (); // P. Mickelson 43
+
+/*
+Bind () Allows us to Borrow Methods
+In JavaScript, we can pass functions around, return them, borrow them, and the like. And the bind () method makes it super easy to borrow 
+methods.
+
+Here is an example using bind () to borrow a method:
+*/
+
+// Here we have a cars object that does not have a method to print its data to the console
+var cars = {
+    data:[
+        {name:"Honda Accord", age:14},
+        {name:"Tesla Model S", age:2}
+    ]
+
+}
+
+// We can borrow the showData () method from the user object we defined in the last example.
+// We bind the user.showData method to the cars object we just created.
+cars.showData = user.showData.bind (cars);
+cars.showData (); // Honda Accord 14
+/*
+One problem with this example is that we are adding a new method (showData) on the cars object and we might not want to do that just to 
+borrow a method because the cars object might already have a property or method name showData, and we don't want to overwrite it accidentally.
+As we will see with Apply and Call (discussed next), it is best to borrow methods with either the Apply or Call methods.
+
+// JavaScript's Bind Allows Us to Curry a Function
+
+Function Currying, also known as partial function application, is the use of a function (that accept one or more arguments) that returns a new 
+function with some of the arguments already set.The function that is returned has access to the stored arguments and variables of 
+the outer function. This sounds way more complex than it actually is, so let's code.
+*/
+
+
+// So we are passing null because we are not using the "this" keyword in our greet function.
+var greetAnAdultMale = greet.bind (null, "male", 45);
+
+greetAnAdultMale ("John Hartlove"); // "Hello, Mr. John Hartlove."
+
+var greetAYoungster = greet.bind (null, "", 16);
+greetAYoungster ("Alex"); // "Hey, Alex."
+greetAYoungster ("Emma Waterloo"); // "Hey, Emma Waterloo."
+
+/*
+When we use the bind () method for currying, all the parameters of the greet () function, except the last (rightmost) argument, are preset. 
+So it is the rightmost argument that we are changing when we call the new functions that were curried from the greet () function. Again, 
+I discuss currying at length in a separate blog post, and you will see how we can easily create very powerful functions with Currying and 
+Compose, two Functional JavaScript concepts.
+
+So, with the bind () method, we can explicitly set the this value for invoking methods on objects, we can borrow
+and copy methods, and assign methods to variable to be executed as functions. And as outlined in the Currying Tip
+earlier, you can use bind for currying.
+
+
+// The Apply and Call methods are two of the most often used Function methods in
+JavaScript, and for good reason: they allow us to borrow functions and set the this value in function invocation. And the apply function 
+in particular allows us to execute a function with an array of parameters, such that each parameter is passed to the function individually 
+when the function executes—great for variadic functions.
+
+// Set the this value with Apply or Call
+Just as in the bind () example, we can also set the this value when invoking functions by using the Apply or Call methods. 
+The first parameter in the call and apply methods set the this value to the object that the function is invoked upon.
+
+Here is a very quick, illustrative example for starters before we get into more complex usages of Apply and Call:
+
+*/
+
+// global variable for demonstration
+var avgScore = "global avgScore";
+
+//global function
+function avg (arrayOfScores) {
+    // Add all the scores and return the total
+    var sumOfScores = arrayOfScores.reduce (function (prev, cur, index, array) {
+        return prev + cur;
+    });
+
+    // The "this" keyword here will be bound to the global object, unless we set the "this" with Call or Apply
+    this.avgScore = sumOfScores / arrayOfScores.length;
+}
+
+var gameController = {
+    scores  :[20, 34, 55, 46, 77],
+    avgScore:null
+}
+
+// If we execute the avg function thus, "this" inside the function is bound to the global window object:
+avg (gameController.scores);
+// Proof that the avgScore was set on the global window object
+console.log (window.avgScore); // 46.4
+console.log (gameController.avgScore); // null
+
+// reset the global avgScore
+avgScore = "global avgScore";
+
+// To set the "this" value explicitly, so that "this" is bound to the gameController,
+// We use the call () method:
+avg.call (gameController, gameController.scores);
+
+console.log (window.avgScore); //global avgScore
+console.log (gameController.avgScore); // 46.4
+
+
+/*
+Note that the first argument to call () sets the this value. In the preceding example, it is set to
+the gameController object. The other arguments after the first argument are passed as parameters to the
+avg () function.
+
+The apply and call methods are almost identical when setting the this value except that you pass the function parameters to apply () 
+as an array, while you have to list the parameters individually to pass them to the call () method. More on this follows. Meanwhile, 
+the apply () method also has another feature that the call () method doesn't have, as we will soon see.
+// Use Call or Apply To Set this in Callback Functions
+
+*/
+
+ // Define an object with some properties and a method
+// We will later pass the method as a callback function to another function
+var clientData = {
+    id: 094545,
+    fullName: "Not Set",
+    // setUserName is a method on the clientData object
+    setUserName: function (firstName, lastName)  {
+    // this refers to the fullName property in this object
+    this.fullName = firstName + " " + lastName;
+    }
+}
 
 
 
+function getUserInput (firstName, lastName, callback, callbackObj) {
+    // The use of the Apply method below will set the "this" value to callbackObj
+    callback.apply (callbackObj, [firstName, lastName]);
+}
+/*
+The Apply method sets the this value to callbackObj. This allows us to execute the callback function with the this value set explicitly, 
+so the parameters passed to the callback function will be set on the clientData object:
+*/
+
+// The clientData object will be used by the Apply method to set the "this" value
+getUserInput ("Barack", "Obama", clientData.setUserName, clientData);
+// the fullName property on the clientData was correctly set
+console.log (clientData.fullName); // Barack Obama
 
 
 
+/*
+The Apply, Call, and Bind methods are all used to set the this value when invoking a method, and they do it in slightly different ways to 
+allow use direct control and versatility in our JavaScript code. The this value in JavaScript is as important as any other part of the 
+language, and we have the 3 aforementioned methods are the essential tools to setting and using this effectively and properly.
 
 
+ 
+// Borrowing Functions with Apply and Call (A Must Know)
+The most common use of the Apply and Call methods in JavaScript is probably to borrow functions. We can borrow functions with the Apply and 
+Call methods as we did with the bind method, but in a more robust and versatile manner.
+
+Here are some examples:
+
+// Borrowing Array Methods
+Arrays come with a number of useful methods for iterating and modifying arrays, but unfortunately, Objects do not have as many native methods. 
+Nonetheless, since objects can be expressed in a manner similar to an Array (known as an array-like object), and most important, because all 
+of the Array methods are generic (except toString and toLocaleString), we can borrow Array methods and use them on objects that are array-like.
+An array-like object is an object that has its keys defined as non-negative integers. It is best to specifically add a length property on the 
+object that has the length of the object, since the a length property does not exist on objects it does on Arrays.
+
+It is important for me to note (for clarity, especially for new JavaScript developers) that in the following examples, when we call 
+Array.prototype, we are reaching into the Array object and on its prototype (where all its methods are defined for inheritance). 
+And it is from there—the source—that we are borrowing the Array methods. Hence the use of code like Array.prototype.slice—the slice method 
+that is defined on the Array prototype.
+
+Let's create an array-like object and borrow some array methods to operate on the our array-like object. Keep in mind the array-like object 
+is a real object, it is not an array at all:
+*/
 
 
+ // An array-like object: note the non-negative integers used as keys
+var anArrayLikeObj = {0:"Martin", 1:78, 2:67, 3:["Letta", "Marieta", "Pauline"], length:4 };
+// Now, if wish to use any of the common Array methods on our object, we can:
+
+// Make a quick copy and save the results in a real array:
+// First parameter sets the "this" value
+var newArray = Array.prototype.slice.call (anArrayLikeObj, 0);
+
+console.log (newArray); // ["Martin", 78, 67, Array[3]]
+
+// Search for "Martin" in the array-like object
+console.log (Array.prototype.indexOf.call (anArrayLikeObj, "Martin") === -1 ? false : true); // true
+
+// Try using an Array method without the call () or apply ()
+console.log (anArrayLikeObj.indexOf ("Martin") === -1 ? false : true); // Error: Object has no method 'indexOf'
+
+// Reverse the object:
+console.log (Array.prototype.reverse.call (anArrayLikeObj));
+// {0: Array[3], 1: 67, 2: 78, 3: "Martin", length: 4}
+// Sweet. We can pop too:
+console.log (Array.prototype.pop.call (anArrayLikeObj));
+console.log (anArrayLikeObj); // {0: Array[3], 1: 67, 2: 78, length: 3}
+
+// What about push?
+console.log (Array.prototype.push.call (anArrayLikeObj, "Jackie"));
+console.log (anArrayLikeObj); // {0: Array[3], 1: 67, 2: 78, 3: "Jackie", length: 4}
+
+
+/*
+We get all the great benefits of an object and we are still able to use Array methods on our object, when we setup our object as an 
+array-like object and borrow the Array methods. All of this is made possible by the virtue of the call or apply method.
+
+The arguments object that is a property of all JavaScript functions is an array-like object, and for this reason, one of the most popular 
+uses of the call () and apply () methods is to extract the parameters passed into a function from the arguments object.
+
+Here is an example I took from the Ember.js source, with comments I added:
+*/
+
+
+function transitionTo (name) {
+    // Because the arguments object is an array-like object
+    // We can use the slice () Array method on it
+    // The number "1" parameter means: return a copy of the array from index 1 to the end. Or simply: skip the first item
+
+    var args = Array.prototype.slice.call (arguments, 1);
+
+    // I added this bit so we can see the args value
+    console.log (args);
+
+    // I commented out this last line because it is beyond this example
+    //doTransition(this, name, this.updateURL, args);
+}
+
+// Because the slice method copied from index 1 to the end, the first item "contact" was not returned
+transitionTo ("contact", "Today", "20"); // ["Today", "20"]
+
+/*
+The args variable is a real array. It has a copy of all the parameters passed to the transitionTo function.
+
+From this example, we learn that a quick way to get all the arguments (as an array) passed to a function is to do:
+*/
+
+ // We do not define the function with any parameters, yet we can get all the arguments passed to it
+function doSomething () {
+    var args = Array.prototype.slice.call (arguments);
+    console.log (args);
+}
+
+doSomething ("Water", "Salt", "Glue"); // ["Water", "Salt", "Glue"]
+
+// We will discuss how to use the apply method with the arguments array-like object again for variadic functions. More on this later.
+
+/*
+// Borrowing String Methods with Apply and Call
+Like the preceding example, we can also use apply () and call () to borrow String methods. Since Strings are immutable, only the 
+non-manipulative arrays work on them, so you cannot use reverse, pop and the like.
+
+// Borrow Other Methods and Functions
+Since we are borrowing, lets go all in and borrow from our own custom methods and functions, not just from Array and String:
+*/
+
+var gameController = {
+                    scores  :[20, 34, 55, 46, 77],
+                    avgScore:null,
+                    players :[
+                        {name:"Tomy", playerID:987, age:23},
+                        {name:"Pau", playerID:87, age:33}
+                    ]
+                }
+
+var appController = {
+    scores  :[900, 845, 809, 950],
+    avgScore:null,
+    avg     :function () {
+
+        var sumOfScores = this.scores.reduce (function (prev, cur, index, array) {
+            return prev + cur;
+        });
+
+        this.avgScore = sumOfScores / this.scores.length;
+    }
+}
+
+// Note that we are using the apply () method, so the 2nd argument has to be an array
+appController.avg.apply (gameController, gameController.scores);
+console.log (gameController.avgScore); // 46.4
+
+// appController.avgScore is still null; it was not updated, only gameController.avgScore was updated
+console.log (appController.avgScore); // null
+
+/*
+Sure, it is just as easy and, even recommended, to borrow our own custom methods and functions. The gameController object borrows the 
+appController object's avg () method. The "this" value defined in the avg () method will be set to the first parameter—the gameController 
+object.
+
+You might be wondering what will happen if the original definition of the method we are borrowing changes. Will the borrowed (copied) method 
+change as well, or is the copied method a full copy that does not refer back to the original method? Let's answer these questions with a 
+quick, illustrative example:
+*/
+
+appController.maxNum = function () {
+    this.avgScore = Math.max.apply (null, this.scores);
+}
+
+appController.maxNum.apply (gameController, gameController.scores);
+console.log (gameController.avgScore); // 77
+
+/*
+As expected, if we change the original method, the changes are reflected in the borrowed instances of that method. This is expected for 
+good reason: we never made a full copy of the method, we simply borrowed it (referred directly to its current implementation).
+*/
+
+//  Use Apply () to Execute Variable-Arity Functions
+
+/*
+To wrap up our discussion on the versatility and usefulness of the Apply, Call, and Bind methods, we will discuss a neat
+little feature of the Apply method: execute functions with an array of arguments.
+
+We can pass an array with of arguments to a function and, by virtue of using the apply () method, the function will execute the
+items in the array as if we called the function like this:
+*/
+createAccount (arrayOfItems[0], arrayOfItems[1], arrayOfItems[2], arrayOfItems[3]);
+
+/*
+This technique is especially used for creating variable-arity, also known as variadic functions.
+These are functions that accept any number of arguments instead of a fixed number of arguments. The arity of a function specifies
+the number of arguments the function was defined to accept.
+
+The Math.max() method is an example of a common variable-arity function in JavaScript:
+*/
+
+// We can pass any number of arguments to the Math.max () method
+console.log (Math.max (23, 11, 34, 56)); // 56
+
+
+var allNumbers = [23, 11, 34, 56];
+    // We cannot pass an array of numbers to the the Math.max method like this
+console.log (Math.max (allNumbers)); // NaN
+
+/*
+This is where the apply () method helps us execute variadic functions. Instead of the above, we have to pass the array of numbers using
+apply () thus:
+*/
+
+var allNumbers = [23, 11, 34, 56];
+// Using the apply () method, we can pass the array of numbers:
+console.log (Math.max.apply (null, allNumbers)); // 56
+
+/*
+As we have learned earlier, the fist argument to apply () sets the "this" value, but "this" is not used in the Math.max () method, 
+so we pass null.
+
+Here is an example of our own variadic function to further illustrate the concept of using the apply () method in this capacity:
+*/
+
+
+var students = ["Peter Alexander", "Michael Woodruff", "Judy Archer", "Malcolm Khan"];
+
+// No specific parameters defined, because ANY number of parameters are accepted
+function welcomeStudents () {
+    var args = Array.prototype.slice.call (arguments);
+
+    var lastItem = args.pop ();
+    console.log ("Welcome " + args.join (", ") + ", and " + lastItem + ".");
+}
+
+welcomeStudents.apply (null, students);
+// Welcome Peter Alexander, Michael Woodruff, Judy Archer, and Malcolm Khan.
+
+
+// Beautiful JavaScript: Easily Create Chainable (Cascading) Methods for Expressiveness
+
+
+/*
+Chaining Methods, also known as Cascading, refers to repeatedly calling one method after another on an object, in one continuous line of code. 
+This technique abounds in jQuery and other JavaScript libraries, and it is even common in some JavaScript native methods.
+
+Writing code like this:
+*/
+$("#wrapper").fadeOut().html("Welcome, Sir").fadeIn();
+// or this:
+
+str.replace("k", "R").toUpperCase().substr(0,4); 
+
+/*
+is not just pleasurable and convenient but also succinct and intelligible. It allows us to read code like a sentence, flowing gracefully 
+across the page. It also frees us from the monotonous, blocky structures we usually construct.
+
+
+We will spend the next 20 minutes learning to create expressive code using this cascading technique. To use cascading, we have to return 
+this (the object we want subsequent methods to operate on) in each method. Let’s quickly learn the details and get back to eating, or 
+watching YouTube videos, or reading Hacker News, or working and browsing, or working and focusing.
+
+Let’s create all of our “chainable” code within an object, along with a local data store. Note that in a real-world app we will likely
+store the data in a database, but here we are just saving it in a variable.
+*/
+
+// The data store:
+ var usersData = [
+  {firstName:"tommy", lastName:"MalCom", email:"test@test.com", id:102},
+  {firstName:"Peter", lastName:"breCht", email:"test2@test2.com", id:103},
+  {firstName:"RoHan", lastName:"sahu", email:"test3@test3.com", id:104}
+ ];
+
+ 
+// A quick utility function that does what it says:
+function titleCaseName(str)
+ {
+  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+ }
+
+
+ // Our object with the chainable methods
+ var userController = {
+
+  currentUser:"",
+
+  findUser:function (userEmail) {
+   var arrayLength = usersData.length, i;
+   for (i = arrayLength - 1; i >= 0; i--) {
+    if (usersData[i].email === userEmail) {
+     this.currentUser = usersData[i];
+     break;
+    }
+   }
+   return this;
+  },
+
+  formatName:function () {
+   if (this.currentUser) {
+    this.currentUser.fullName = titleCaseName (this.currentUser.firstName) + " " + titleCaseName (this.currentUser.lastName);
+   }
+   return this;
+
+  },
+
+  createLayout:function () {
+   if (this.currentUser) {
+    this.currentUser.viewData = "<h2>Member: " + this.currentUser.fullName + "</h2>"
+  + "<p>ID: " + this.currentUser.id + "</p>" + "<p>Email: " + this.currentUser.email + "</p>";
+   }
+   return this;
+  },
+
+  displayUser:function () {
+   if (!this.currentUser) return;
+
+   $(".members-wrapper").append(this.currentUser.viewData);
+
+  }
+ };
+
+ // With our chainable methods defined, we can now execute our expressive code like this (just like it is done in jQuery):
+
+ userController.findUser("test2@test2.com").formatName().createLayout().displayUser();
+
+// Why Use Cascading in JavaScript?
+
+/*
+There is no need to create temporary variables to save each step of the process. For example, without chaining, our code will look like
+this:
+*/
+
+var aUser = userController.findUser("test@test.com");
+var formatUserName =  aUser.formatName();
+var layoutHTML =  formatUserName.createLayout();
+userController.displayUser(layoutHTML);
+
+/*
+Now, every line of code clearly and succinctly expresses what it is doing, particularly when the name of each method is defined using verbs.
+
+Our code is more maintainable because we have simple, lean, specialized methods.
+
+Overall, one can easily read the “chainable” code, effortlessly type it, and comfortably understand it.
+// How Does Chaining Methods Work in JavaScript?
+
+When each method returns this, the entire object that called the method is returned. The execution proceeds thus:
+*/
+
+// Use the userController object to execute the findUser method
+userController.findUser("test@testdd.com")
+/*
+Because we are executing the findUser method on the userController object, and because the findUser method returns “this” 
+(the object that invoked it), the entire userController object is returned and passed to the next method in the chain, since 
+the “this” keyword in findUser holds the value of the object that invoked it.
+
+Therefore, this occurs next:
+*/
+userController.formatName();
+// Similarly, the formatName method returns the userController object, so expectedly, this follows:
+
+userController.createLayout();
+
+// Followed by:
+<script>
+ userController.displayUser();
+
+// Each step of the way, we are returning the userController object and invoking methods on it.
 
 
 
@@ -2252,11 +3296,6 @@ console.log(typeof myName); // string
 var myName = function () {
     console.log ("Rich");
 }
-
-
-
-
-
 
 
 -------------------------------------------------------------------------------------------------------------------------
